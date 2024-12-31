@@ -1,0 +1,16 @@
+workflows:
+  android-build-only:
+    name: Android Build Workflow
+    instance_type: mac_mini_m1
+    max_build_duration: 30
+    environment:
+      flutter: stable
+    scripts:
+      - name: Install Flutter Dependencies
+        script: |
+          flutter pub get
+      - name: Build App Bundle (AAB)
+        script: |
+          flutter build appbundle --build-number=$PROJECT_BUILD_NUMBER
+    artifacts:
+      - build/**/outputs/**/*.aab
